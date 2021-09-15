@@ -5,9 +5,11 @@ import os
 
 # contatos_df = pd.read_excel("C:/Users/user/Desktop/Auto/implementação (2).xlsm", index_col=None, na_values=["NA"], usecols="B, H")
 # contatos_df = contatos_df.loc[1]
-contatos_df = pd.read_excel("C:/Users/user/Desktop/Auto/implementação (2).xlsm")
+contatos_df = pd.read_excel("impl.xlsm")
 
+main_df = pd.DataFrame({})
 
+migrando = list()
 for i, mensagem in enumerate(contatos_df['Número do processo:']):
     filesequence = + 1
     Honrarios = contatos_df.loc[i, 'Honorários %']
@@ -30,22 +32,25 @@ for i, mensagem in enumerate(contatos_df['Número do processo:']):
           f"{Score} - {Data_Base} - {Data_Decisao} - "
           f"{Liquido} - {Juros} - {Valor_negociavel} - "
           f"{Entidade} - {Requerente} - {CPF}")
-    migrando = pd.DataFrame({"Honorários": [Honrarios],
-                       "NUMERO_PROCESSO": [Numero_Processo],
-                       "NUMERO_INCIDENTE": [Numero_Incidente],
-                       "TERMO_INICIAL": [Termo_Inicial],
-                       "TERMO_FINAL": [Termo_Final],
-                       "FORO": [Foro],
-                       "SCORE": [Score],
-                       "DATA_BASE": [Data_Base],
-                       "DATA_DECISÃO": [Data_Decisao],
-                       "Principal_Liquido": [Liquido],
-                       "JUROS_MORATÓRIO": [Juros],
-                       "VALOR_NEGOCIÁVEL": [Valor_negociavel],
-                       "ENTIDADE_DEVEDORA": [Entidade],
-                       "REQUERENTE": [Requerente],
-                       "CPF": [CPF]})
 
-    migrando.to_excel(f"MIGRANDO{filesequence}.xlsx")
-    filesequence += 1
-    sleep(2)
+    migrando.append(pd.DataFrame({"Honorários": [Honrarios],
+                                  "NUMERO_PROCESSO": [Numero_Processo],
+                                  "NUMERO_INCIDENTE": [Numero_Incidente],
+                                  "TERMO_INICIAL": [Termo_Inicial],
+                                  "TERMO_FINAL": [Termo_Final],
+                                  "FORO": [Foro],
+                                  "SCORE": [Score],
+                                  "DATA_BASE": [Data_Base],
+                                  "DATA_DECISÃO": [Data_Decisao],
+                                  "Principal_Liquido": [Liquido],
+                                  "JUROS_MORATÓRIO": [Juros],
+                                  "VALOR_NEGOCIÁVEL": [Valor_negociavel],
+                                  "ENTIDADE_DEVEDORA": [Entidade],
+                                  "REQUERENTE": [Requerente],
+                                  "CPF": [CPF]}))
+
+
+test = pd.concat(migrando)
+
+test.to_excel(f"MIGRANDO{filesequence}.xlsx", index=False)
+filesequence +=
